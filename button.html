@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+
+        @import url('https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Monoton&display=swap');
+        
+        body {
+  margin: 0;
+  padding: 0;
+  background-color: #ffd1dc;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.home {
+  text-align: center;
+}
+
+.title {
+  font-size: 48px;
+  color: #ff69b4;
+  margin-bottom: 20px;
+}
+
+input {
+  padding: 10px;
+  margin-bottom: 10px;
+  border: none;
+  border-radius: 5px;
+}
+h3{
+  font-size: 30px;
+}
+
+button {
+  padding: 10px 20px;
+  background-color: #ff69b4;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button a {
+  text-decoration: none;
+  color: white;
+}
+
+button:hover {
+  background-color: #ff1493;
+}
+    </style>
+</head>
+<body>
+    <div class="home">
+        <h3 class="para">Add your attendance for today</h3>
+    
+        <input placeholder="Username" id="name">
+        <button id="attendance_btn" class="initial"><a href="#">Add my attendance.</a></button>
+   </div>
+   <!-- <script type="module">
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-analytics.js";
+        import { getDatabase, ref, set,get,child,update,remove } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-database.js";
+        import {getAuth,createUserWithEmailAndPassword,signInWithEmailAndPassword }  from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
+    
+        const firebaseConfig = {
+          apiKey: "AIzaSyDMn0WncLuRWMLPdSM97POm_suyO9HAqLM",
+          authDomain: "attendance-d2219.firebaseapp.com",
+          projectId: "attendance-d2219",
+          storageBucket: "attendance-d2219.appspot.com",
+          messagingSenderId: "997668470283",
+          appId: "1:997668470283:web:aaaf5a6c423d1dd348910e",
+          measurementId: "G-TS4V0HVQ9L"
+        };
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+        const db = getDatabase(app);
+        const auth = getAuth();
+           
+        const name = document.getElementById("name");
+
+function LikeButton() {
+  const dbref = ref(db);
+
+  get(child(dbref, "UserRegister/" + name.value)).then((snapshot) => {
+    if (snapshot.exists()) {
+      var val = snapshot.val().Attendance;
+      var totalAttendance = snapshot.val().TotalAttendance;
+      var percentage = (Number(val) / Number(totalAttendance)) * 100;
+
+      update(ref(db, "UserRegister/" + name.value), {
+        Attendance: percentage.toFixed(2), // Round the percentage to 2 decimal places
+      })
+        .then(() => {
+          alert("Data entered successfully");
+          window.location.href = "userlogin.html";
+        })
+        .catch((error) => {
+          alert("Unsuccessful, error=" + error);
+        });
+    } else {
+      alert("No data found");
+    }
+  })
+    .catch((error) => {
+      alert("Unsuccessful, error=" + error);
+    });
+}
+
+const button=document.getElementById("attendance_btn")
+    button.addEventListener("click",LikeButton)
+ -->
+ <script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-analytics.js";
+  import { getDatabase, ref, set, get, child, update, remove } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-database.js";
+  import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
+  
+  const firebaseConfig = {
+          apiKey: "AIzaSyDMn0WncLuRWMLPdSM97POm_suyO9HAqLM",
+          authDomain: "attendance-d2219.firebaseapp.com",
+          projectId: "attendance-d2219",
+          storageBucket: "attendance-d2219.appspot.com",
+          messagingSenderId: "997668470283",
+          appId: "1:997668470283:web:aaaf5a6c423d1dd348910e",
+          measurementId: "G-TS4V0HVQ9L"
+        };
+  const app = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
+  const db = getDatabase(app);
+  const auth = getAuth();
+  
+  const name = document.getElementById("name");
+  
+  function LikeButton() {
+    const dbref = ref(db);
+  
+    console.log("Attempting to retrieve data for user: " + name.value);
+  
+    get(child(dbref, "UserRegister/" + name.value)).then((snapshot) => {
+      console.log("Data retrieval successful. Snapshot:", snapshot.val());
+  
+      if (snapshot.exists()) {
+        var val = snapshot.val().Attendance;
+        update(ref(db, "UserRegister/"+name.value),{
+                Attendance: Number(val) + 1,
+            })
+        // var Attendance = snapshot.val().Attendance;
+        // var percentage = (Number(val) / Number(Attendance)) * 100;
+  
+        console.log("Calculated percentage: " + percentage.toFixed(2));
+  
+        update(ref(db, "UserRegister/" + name.value), {
+          Attendance: percentage.toFixed(2),
+        })
+          .then(() => {
+            console.log("Data updated successfully");
+            alert("Data entered successfully");
+            window.location.href = "userlogin.html";
+          })
+          .catch((error) => {
+            console.error("Data update failed. Error:", error);
+            alert("Unsuccessful, error=" + error);
+          });
+      } else {
+        console.warn("No data found for user: " + name.value);
+        alert("No data found");
+      }
+    })
+    .catch((error) => {
+      console.error("Data retrieval failed. Error:", error);
+      alert("Unsuccessful, error=" + error);
+    });
+  }
+  
+  const button = document.getElementById("attendance_btn");
+  button.addEventListener("click", () => {
+    console.log("Button clicked.");
+    LikeButton();
+  });
+  
+  
+</script>
+</body>
+</html>
+

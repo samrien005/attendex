@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login</title>
+    <style>
+        
+
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+body{
+    background-image: url("https://i.pinimg.com/564x/a8/73/4c/a8734cbbe0323d418ef0094147f62680.jpg");
+    background-size: cover;
+}
+.background{
+    width: 430px;
+    height: 520px;
+    position: absolute;
+    transform: translate(-50%,-50%);
+    left: 50%;
+    top: 50%;
+}
+
+.form1{
+    /* display: none; */
+    height: 500px;
+    width: 400px;
+    background:transparent;
+    position: absolute;
+    transform: translate(-50%,-45%);
+    top: 45%;
+    left: 50%;
+    border-radius: 10px;
+    border-top:3px solid rgb(255, 47, 200);
+    /* backdrop-filter: blur(10px); */
+    /* border: 2px solid rgba(255,255,255,0.1); */
+    box-shadow: 0 0 40px rgba(8,7,16,0.6);
+    padding: 50px 35px;
+}
+.form1 *{
+    font-family: 'Poppins',sans-serif;
+    color: #ffffff;
+    letter-spacing: 0.5px;
+    outline: none;
+    border: none;
+}
+.form1 h3{
+    font-size: 32px;
+    font-weight: 500;
+    line-height: 42px;
+    text-align: center;
+    color: #080710;
+    font-weight: 600;
+}
+
+label{
+    display: block;
+    margin-top: 30px;
+    font-size: 16px;
+    font-weight: 500;
+    color: #080710;
+}
+input{
+    display: block;
+    height: 43px;
+    width: 100%;
+    /* background-color:white; */
+    color: #080710;
+    border-radius: 3px;
+    padding: 0 10px;
+    margin-top: 8px;
+    font-size: 14px;
+    font-weight: 300;
+}
+::placeholder{
+    color:black;
+}
+.form1 button{
+    margin-top: 25px;
+    width: 90%;
+    background-color: #b86975;
+    color: #080710;
+    padding: 14px 0;
+    margin-left: 5%;
+    font-size: 18px;
+    font-weight: 600;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 300ms;
+}
+
+.form1 button:hover{
+    background-color: rgb(171, 171, 171);
+    
+}
+.form1 input:invalid{
+    border: none;
+    outline: 2px solid red;
+}
+#result-box2{
+    color: black;
+    display: block;
+
+}
+#result2{
+    margin-top: 3%;
+    text-align: center;
+
+}
+
+
+    </style>
+</head>
+<body>
+    
+    <div class="background"></div>
+    <form class="form1" id="form1">
+        <h3>Admin Login</h3>
+
+        <label style="color: black;" for="password">Username</label>
+        <input type="text" placeholder="Username" id="adminuser">
+
+
+        <label style="color: black;" for="username">Email</label>
+        <input type="email"  placeholder="name@gmail.com" id="adminemail">
+
+        <label style="color: black;" for="password">Password</label>
+        <input type="password" placeholder="Password" id="adminpassword">
+
+        <button style="color: black;" type="button" id="login">Submit</button>
+        <div id="result-box2" class="center-box">
+            <h5 style="color: black;" id="result2">Don't have an account? <span><a style="color: black;" id="sign-up" href="admin_register.html">Sign Up</a></span></h5>
+        </div>
+
+        
+    </form>
+
+
+        
+    
+    
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
+        import{ getDatabase, ref, set, child, get, update, remove} from "https://www.gstatic.com/firebasejs/9.22.2/firebase-database.js"
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+      
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+          apiKey: "AIzaSyBfarBPupvy8ndzA99rar9zB8Y5orIBtl4",
+          authDomain: "admin-side-481cd.firebaseapp.com",
+          projectId: "admin-side-481cd",
+          databaseURL: "https://admin-side-481cd-default-rtdb.firebaseio.com",
+          storageBucket: "admin-side-481cd.appspot.com",
+          messagingSenderId: "1082701688062",
+          appId: "1:1082701688062:web:24dcfc43d1af06121b49af"
+        };
+      
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+      
+        
+    const auth=getAuth();
+    
+    
+    const db=getDatabase(app);
+
+    // var adminMail=document.getElementById("adminemail");
+    // var adminPassword=document.getElementById("adminpassword");
+
+
+
+        
+    // function isEmptyOrSpaces(str){
+    //     return str==null||str.match(/^ *$/) !==null;
+    // }
+    
+    
+    // function Validation(){
+    //     let ademailregex=/^[a-zA-Z0-9]+@(gmail|yahoo|outlook)\.com$/;
+    
+    //     if(isEmptyOrSpaces(adminMail.value)||isEmptyOrSpaces(adminPassword.value)){
+    //         alert("You cannot leave any field empty!");
+    //         return false;
+    //     }
+    //     if(!ademailregex.test(adminMail.value)){
+    //         alert("Enter a valid email.");
+    //         return false;
+    
+    //     }
+        
+    //     return true;
+    // }
+    // document.getElementById("login").addEventListener("click",Validation);
+
+    
+
+   
+    login.addEventListener("click",(e)=>{
+    e.preventDefault(e)
+        const adminEmail=document.getElementById("adminemail").value;
+    const adminPasswordvalue=document.getElementById("adminpassword").value;
+    const adminuser=document.getElementById("adminuser").value
+        signInWithEmailAndPassword(auth,adminEmail,adminPasswordvalue).catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            alert(errorMessage)
+          }).then((userCredential)=>{
+            const user = userCredential.user;
+        if(user){
+            const dt=new Date();
+            update(ref(db,"AdminList/"+adminuser),{
+               last_login:dt,
+
+            })
+            alert("You are logged in!");
+            window.location.href="adminhome.html";
+        } 
+        }); 
+    })
+
+
+    </script>
+
+        
+    
+</body>
+</html>
