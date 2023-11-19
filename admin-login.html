@@ -149,8 +149,7 @@ input{
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
         import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
         import{ getDatabase, ref, set, child, get, update, remove} from "https://www.gstatic.com/firebasejs/9.22.2/firebase-database.js"
-        // TODO: Add SDKs for Firebase products that you want to use
-        // https://firebase.google.com/docs/web/setup#available-libraries
+       
       
         // Your web app's Firebase configuration
         const firebaseConfig = {
@@ -171,38 +170,6 @@ input{
     
     
     const db=getDatabase(app);
-
-    // var adminMail=document.getElementById("adminemail");
-    // var adminPassword=document.getElementById("adminpassword");
-
-
-
-        
-    // function isEmptyOrSpaces(str){
-    //     return str==null||str.match(/^ *$/) !==null;
-    // }
-    
-    
-    // function Validation(){
-    //     let ademailregex=/^[a-zA-Z0-9]+@(gmail|yahoo|outlook)\.com$/;
-    
-    //     if(isEmptyOrSpaces(adminMail.value)||isEmptyOrSpaces(adminPassword.value)){
-    //         alert("You cannot leave any field empty!");
-    //         return false;
-    //     }
-    //     if(!ademailregex.test(adminMail.value)){
-    //         alert("Enter a valid email.");
-    //         return false;
-    
-    //     }
-        
-    //     return true;
-    // }
-    // document.getElementById("login").addEventListener("click",Validation);
-
-    
-
-   
     login.addEventListener("click",(e)=>{
     e.preventDefault(e)
         const adminEmail=document.getElementById("adminemail").value;
@@ -225,11 +192,6 @@ input{
         } 
         }); 
     })
-
-
-    </script>
-
-        
-    
+</script>
 </body>
 </html>
