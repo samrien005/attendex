@@ -64,60 +64,6 @@ button:hover {
         <input placeholder="Username" id="name">
         <button id="attendance_btn" class="initial"><a href="#">Add my attendance.</a></button>
    </div>
-   <!-- <script type="module">
-
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
-        import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-analytics.js";
-        import { getDatabase, ref, set,get,child,update,remove } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-database.js";
-        import {getAuth,createUserWithEmailAndPassword,signInWithEmailAndPassword }  from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
-    
-        const firebaseConfig = {
-          apiKey: "AIzaSyDMn0WncLuRWMLPdSM97POm_suyO9HAqLM",
-          authDomain: "attendance-d2219.firebaseapp.com",
-          projectId: "attendance-d2219",
-          storageBucket: "attendance-d2219.appspot.com",
-          messagingSenderId: "997668470283",
-          appId: "1:997668470283:web:aaaf5a6c423d1dd348910e",
-          measurementId: "G-TS4V0HVQ9L"
-        };
-        const app = initializeApp(firebaseConfig);
-        const analytics = getAnalytics(app);
-        const db = getDatabase(app);
-        const auth = getAuth();
-           
-        const name = document.getElementById("name");
-
-function LikeButton() {
-  const dbref = ref(db);
-
-  get(child(dbref, "UserRegister/" + name.value)).then((snapshot) => {
-    if (snapshot.exists()) {
-      var val = snapshot.val().Attendance;
-      var totalAttendance = snapshot.val().TotalAttendance;
-      var percentage = (Number(val) / Number(totalAttendance)) * 100;
-
-      update(ref(db, "UserRegister/" + name.value), {
-        Attendance: percentage.toFixed(2), // Round the percentage to 2 decimal places
-      })
-        .then(() => {
-          alert("Data entered successfully");
-          window.location.href = "userlogin.html";
-        })
-        .catch((error) => {
-          alert("Unsuccessful, error=" + error);
-        });
-    } else {
-      alert("No data found");
-    }
-  })
-    .catch((error) => {
-      alert("Unsuccessful, error=" + error);
-    });
-}
-
-const button=document.getElementById("attendance_btn")
-    button.addEventListener("click",LikeButton)
- -->
  <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
   import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-analytics.js";
@@ -137,57 +83,39 @@ const button=document.getElementById("attendance_btn")
   const analytics = getAnalytics(app);
   const db = getDatabase(app);
   const auth = getAuth();
-  
   const name = document.getElementById("name");
-  
-  function LikeButton() {
-    const dbref = ref(db);
-  
-    console.log("Attempting to retrieve data for user: " + name.value);
-  
-    get(child(dbref, "UserRegister/" + name.value)).then((snapshot) => {
-      console.log("Data retrieval successful. Snapshot:", snapshot.val());
-  
-      if (snapshot.exists()) {
-        var val = snapshot.val().Attendance;
-        update(ref(db, "UserRegister/"+name.value),{
-                Attendance: Number(val) + 1,
-            })
-        // var Attendance = snapshot.val().Attendance;
-        // var percentage = (Number(val) / Number(Attendance)) * 100;
-  
-        console.log("Calculated percentage: " + percentage.toFixed(2));
-  
-        update(ref(db, "UserRegister/" + name.value), {
-          Attendance: percentage.toFixed(2),
-        })
-          .then(() => {
-            console.log("Data updated successfully");
-            alert("Data entered successfully");
-            window.location.href = "userlogin.html";
-          })
-          .catch((error) => {
-            console.error("Data update failed. Error:", error);
-            alert("Unsuccessful, error=" + error);
-          });
-      } else {
-        console.warn("No data found for user: " + name.value);
-        alert("No data found");
-      }
-    })
-    .catch((error) => {
-      console.error("Data retrieval failed. Error:", error);
-      alert("Unsuccessful, error=" + error);
-    });
-  }
-  
-  const button = document.getElementById("attendance_btn");
-  button.addEventListener("click", () => {
-    console.log("Button clicked.");
-    LikeButton();
+
+function LikeButton() {
+  const dbref = ref(db);
+
+  get(child(dbref, "UserRegister/" + name.value)).then((snapshot) => {
+    if (snapshot.exists()) {
+      var val = snapshot.val().Attendance;
+      var classesAttended = Number(val) + 1; // Increment classes attended by 1
+
+      // Limit classesAttended to a maximum of 50
+      classesAttended = Math.min(classesAttended, 50);
+
+      update(ref(db, "UserRegister/" + name.value), {
+        Attendance: classesAttended, // Update the attendance count
+      }).then(() => {
+        alert("Your attendance has been added for today!! (" + classesAttended + "/50 classes)");
+        window.location.href="index.html"
+      }).catch((error) => {
+        console.error("Update failed:", error);
+        alert("Unsuccessful, error: " + error);
+      });
+    } else {
+      alert("No data found");
+    }
+  }).catch((error) => {
+    console.error("Data retrieval failed:", error);
+    alert("Unsuccessful, error: " + error);
   });
-  
-  
+}
+
+const button = document.getElementById("attendance_btn");
+button.addEventListener("click", LikeButton);
 </script>
 </body>
 </html>
