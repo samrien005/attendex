@@ -112,7 +112,7 @@ color: black;
         const analytics = getAnalytics(app);
         const db = getDatabase(app);
         const auth = getAuth();
-    sub_btn.addEventListener("click",(e)=>{
+      sub_btn.addEventListener("click",(e)=>{
     const email=document.getElementById("emailInp").value;
     const pass =document.getElementById("passInp").value;
     const username=document.getElementById("userInp").value;
@@ -158,14 +158,6 @@ if (Email.length != 12) {
             alert(errorMessage)
           }); 
     });
-//------------------------------encryption------------------------------------------------------------//
-        //  function encPass(){
-        //      var pass12 = CrytoJS.AES.encrypt(pass.value, pass.value);
-        //      return pass12.toString();
-        //  }       
-//--------------------------------assign the events----------------------------------------------------//
-
-        // submit.addEventListener('click', RegisterUser)
 
     </script>
 
